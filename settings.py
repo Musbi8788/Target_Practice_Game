@@ -15,7 +15,7 @@ class Settings:
 
         # Ship Settings
         self.ship_speed = 1.5
-        self.ship_limit = 3  # number of live the user have
+        # self.ship_limit = 3  # number of live the user have
 
         # Screen Settings
         self.screen_width = 850  # defualt 850
@@ -27,3 +27,6 @@ class Settings:
         self.rectangle_speed = 1.5
         self.fleet_drop_speed = 10
         self.vertical_direction = 1
+
+        # Three change to loss
+        self.shoot_limit = 3

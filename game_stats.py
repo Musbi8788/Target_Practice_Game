@@ -1,9 +1,9 @@
 class GameStats:
     """Track statistics for Alien Invasion"""
 
-    def __init__(self, ai_game):
+    def __init__(self, tp_game):
         """Initialize statistics"""
-        self.settings = ai_game.settings
+        self.settings = tp_game.settings
         self.rest_stats()
         # Start game in an inactive state
         self.game_active = False

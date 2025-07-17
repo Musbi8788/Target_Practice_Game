@@ -5,9 +5,9 @@ class Button:
     """ A Class to Create the Start Button
     """
 
-    def __init__(self, ai_game, msg):
+    def __init__(self, tp_game, msg):
         """Initialize the button attributes"""
-        self.screen = ai_game.screen
+        self.screen = tp_game.screen
         self.screen_rect = self.screen.get_rect()
 
         # Set the dimenson and properties the of the button

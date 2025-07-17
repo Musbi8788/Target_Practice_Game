@@ -1,11 +1,13 @@
 import pygame 
+from pygame.sprite import Sprite
 
-class Rectangle:
+class Rectangle(Sprite):
     """ A Class to create a rectangle
     """
 
     def __init__(self, tp_game):
         """Initialize the rectangle attributes"""
+        super().__init__()
         self.screen = tp_game.screen
         self.settings = tp_game.settings
         self.screen_rect = self.screen.get_rect()
