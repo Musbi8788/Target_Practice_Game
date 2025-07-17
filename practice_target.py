@@ -138,7 +138,12 @@ class TargetPractice():
             if bullet.rect.left > self.screen.get_rect().right:
                 self.bullets.remove(bullet)
 
-            self._check_bullets_rectangle_collisions()
+        self._check_bullets_rectangle_collisions()
+
+
+        # Look for bullets hitting the right of the screen
+        self._check_missed_bullets()
+
     
     def _check_bullets_rectangle_collisions(self):
         """Respond to bullets-rectangle collisions
@@ -146,9 +151,52 @@ class TargetPractice():
         # Remove any bullets and rectangle that have collided
 
         collisions = pygame.sprite.groupcollide(
-            self.bullets, self.rectangle, True, False)  
+            self.bullets, self.rectangle, True, True)  # Destory the rectangle 
+        # if rectangle don't exist create a new  rectangle
+        if not self.rectangle:
+            # Destory existing bullets and create new a rectangle
+            self.bullets.empty()  # destory the bullets
+            self._create_rectangle()  # create new a rectangle
 
+            sleep(0.3)
 
+    def _create_rectangle(self):
+        """Create a new rectangle"""
+        new_rectangle = Rectangle(self)
+        self.rectangle.add(new_rectangle)
+
+        
+    def _bullet_fail(self):
+        """Respond to the bullet that fail to hit the rectangle."""
+
+        # Allow the user to start over if bullets limited is still available with them
+        if self.stats.missed > 0: # missed is = 3
+
+            # Decrement Bullets
+            self.stats.missed -= 1
+
+            # Get rid of any remaining bullets
+            self.bullets.empty()
+
+            # Center the ship
+            self.ship.center_left_ship()
+
+            # Pause
+            sleep(0.5)
+
+        else:
+            self.stats.game_active = False  # End the game
+            pygame.mouse.set_visible(True)  # Show the mouse on the screen
+
+    def _check_missed_bullets(self):
+        """Check if any bullets have reached the right of the screen."""
+        screen_rect = self.screen.get_rect()
+        # Loop through the bullets sprite
+        for bullet in self.bullets.sprites():
+            if bullet.rect.right >= screen_rect.right:
+                # Treat this the same as the ship got hit.
+                self._bullet_fail()
+                break
 
 
     def _update_screen(self):
